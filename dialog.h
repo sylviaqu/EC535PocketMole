@@ -2,6 +2,7 @@
 #define DIALOG_H
 
 #include <QDialog>
+#include <QTimer>
 
 class Dialog : public QDialog
 {
@@ -9,9 +10,13 @@ class Dialog : public QDialog
 
 private:
    QPushButton *mybutton;
+   QPushButton *mychange;
+   //QTimer * posTimer;
 
 private slots:
    void handleButton();
+   void showButton();
+
 
 public:
     Dialog(QWidget *parent = 0);
