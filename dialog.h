@@ -10,13 +10,12 @@ class Dialog : public QDialog
 
 private:
    QPushButton *mybutton;
-   QPushButton *mychange;
-   //QTimer * posTimer;
+   QTimer *timer;
 
 private slots:
    void handleButton();
-   void showButton();
-
+   void showButton(QTimer *);
+   void TimeCount();
 
 public:
     Dialog(QWidget *parent = 0);
