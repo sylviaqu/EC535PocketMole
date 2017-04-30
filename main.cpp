@@ -1,6 +1,7 @@
 #include "dialog.h"
 #include <QApplication>
 #include <QString>
+#include <QTimer>
 
 int main(int argc, char *argv[])
 {
