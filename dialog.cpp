@@ -85,7 +85,7 @@ void Dialog::TimeCount(){
 
 
 void Dialog::handleButton(){
-    //hit = 1;
+    hit = 1;
     score++;
     //interval = interval-1;
     QTimer::singleShot(200,this,SLOT(showButton()));
