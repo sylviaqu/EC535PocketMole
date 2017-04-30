@@ -9,14 +9,19 @@
 #include <QtGlobal>
 #include <Qdebug>
 #include <QTimer>
+#include <QFont>
+
 
 static int score = 0;
 static int position_x[9] = {50,200,350,50,200,350,50,200,350};
 static int position_y[9] = {50,200,350,50,200,350,50,200,350};
 static int end_flag = 0;
 static int remainT = 10;
-QTimer *run = new QTimer();
+static int interval = 1000;
+static int hit = 0;
 
+QTimer *run = new QTimer();
+QTimer *miss = new QTimer();
 
 Dialog::Dialog(QWidget *parent)
     : QDialog(parent)
@@ -24,74 +29,71 @@ Dialog::Dialog(QWidget *parent)
         mybutton = new QPushButton(this);
         gameover = new QPushButton(this);
         over = new QLabel(this);
-        //QTimer *run = new QTimer(this);
         run ->singleShot(1000,this,SLOT(TimeCount()));
-        //remainT = run->remainingTime();
-        //qDebug() << remainT;
-        //setWindowTitle("whack-a-mole     time："+QString::number(remainT)+"        score:"+QString::number(score)+"");
         showButton();
         connect(mybutton, SIGNAL (released()), this, SLOT (handleButton()));
         connect(gameover, SIGNAL (released()), this, SLOT (again()));
         gameover->hide();
         over ->hide();
-        connect(run, SIGNAL(timeout()), this, SLOT(TimeCount()));
-        //timer->start(10000);
-
 }
 
 
 void Dialog::showButton(){
     if(end_flag == 0){
+        hit = 0;
         int x = qrand()%9;
         int y = qrand()%9;
 
-    QPixmap mole("/Users/liyihan//Downloads/mole1.png");
-    QIcon ButtonIcon(mole);
-    //mybutton = new QPushButton(this);
-    mybutton -> setIcon(ButtonIcon);
-    mybutton -> setIconSize(QSize(100,100));
-    mybutton -> setGeometry(position_x[x],position_y[y],100,100);
-    QCursor cursor;
-    QPixmap pixmap("/Users/liyihan/Downloads/hammer.png");
-    QPixmap scaled = pixmap.scaled(QSize(74,62));
-    cursor=QCursor(scaled,-1,-1);
-    setCursor(cursor);
-    score ++;
-    //setWindowTitle("whack-a-mole     time：         score:"+QString::number(score)+"");
+        QPixmap mole("/Users/xogoss/Desktop/EC535PocketMole/mole1.png");
+        QIcon ButtonIcon(mole);
+        mybutton -> setIcon(ButtonIcon);
+        mybutton -> setIconSize(QSize(100,100));
+        mybutton -> setGeometry(position_x[x],position_y[y],100,100);
+        QCursor cursor;
+        QPixmap pixmap("/Users/xogoss/Desktop/EC535PocketMole/hammer.png");
+        QPixmap scaled = pixmap.scaled(QSize(74,62));
+        cursor=QCursor(scaled,-1,-1);
+        setCursor(cursor);
+        //if(hit == 0){
+        //    miss->singleShot(1000,this,SLOT(missmole()));
+        //}
     }
 }
 void Dialog::TimeCount(){
-        if (remainT>0){
+    if (remainT>0){
         remainT--;
         run->singleShot(1000,this,SLOT(TimeCount()));
         setWindowTitle("whack-a-mole     time："+QString::number(remainT)+"        score:"+QString::number(score)+"");}
-        else{
+    else{
+        QFont font = this->gameover->font();
+        font.setPointSize(16);
+        gameover ->setText("AGAIN!");
+        gameover ->setFont(font);
+        gameover ->setGeometry(180,300,150,50);
+        gameover ->show();
 
-            QPixmap mole("/Users/liyihan//Downloads/mole.png");
-            QIcon ICON(mole);
-            gameover -> setIcon(ICON);
-            gameover ->setGeometry(200,300,50,50);
-            gameover ->show();
+        QString end = "      Game Over\n \n Your Score is:   ";
+        over -> setText(end + QString::number(score));
+        over -> setFont(font);
+        over -> setAutoFillBackground(true);
+        over ->setGeometry(180,200,200,100);
+        over->show();
 
-
-            over -> setText("Game Over");
-            over ->setGeometry(200,200,100,50);
-            over->show();
-
-            end_flag = 1;
-        }
-
-
+        end_flag = 1;
+    }
 }
 
 
 void Dialog::handleButton(){
+    //hit = 1;
+    score++;
+    //interval = interval-1;
     QTimer::singleShot(200,this,SLOT(showButton()));
+}
 
-
-    //QPixmap after("/Users/liyihan//Downloads/mole.png");
-    //QIcon Butt(after);
-    //mybutton -> setIcon(Butt);
+void Dialog::missmole(){
+    //score--;
+    showButton();
 }
 
 void Dialog::again(){

@@ -13,12 +13,14 @@ private:
    QPushButton *mybutton;
    QPushButton *gameover;
    QTimer *timer;
+   QTimer *miss;
    QLabel *over;
 private slots:
    void handleButton();
    void showButton();
    void TimeCount();
    void again();
+   void missmole();
 public:
     Dialog(QWidget *parent = 0);
     ~Dialog();
