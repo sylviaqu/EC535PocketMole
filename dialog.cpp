@@ -110,7 +110,7 @@ void Dialog::showButton(){
         hit = 0;
         int x = qrand()%9;
         int y = qrand()%9;
-        //QPixmap mole;
+
         if(pic == 1){
             QPixmap mole("/Users/xogoss/Desktop/EC535PocketMole/mole1.png");
             QIcon ButtonIcon(mole);
@@ -138,9 +138,8 @@ void Dialog::showButton(){
         QPixmap scaled = pixmap.scaled(QSize(74,62));
         cursor=QCursor(scaled,-1,-1);
         setCursor(cursor);
-        //if(hit == 0){
-        //    miss->singleShot(1000,this,SLOT(missmole()));
-        //}
+
+        miss->singleShot(1000,this,SLOT(missmole()));
     }
 
 }
@@ -176,12 +175,34 @@ void Dialog::handleButton(){
     hit = 1;
     score++;
     //interval = interval-1;
-    QTimer::singleShot(200,this,SLOT(showButton()));
+    if(pic == 1){
+        QPixmap mole("/Users/xogoss/Desktop/EC535PocketMole/afterduang.png");
+        QIcon ButtonIcon(mole);
+        mybutton -> setIcon(ButtonIcon);
+        mybutton -> setIconSize(QSize(100,100));
+    }
+    else if(pic == 2){
+        QPixmap mole("/Users/xogoss/Desktop/EC535PocketMole/afterduang.png");
+        QIcon ButtonIcon(mole);
+        mybutton -> setIcon(ButtonIcon);
+        mybutton -> setIconSize(QSize(100,100));
+    }
+    else if(pic == 3){
+        QPixmap mole("/Users/xogoss/Desktop/EC535PocketMole/afterduang.png");
+        QIcon ButtonIcon(mole);
+        mybutton -> setIcon(ButtonIcon);
+        mybutton -> setIconSize(QSize(100,100));
+    }
+    QTimer::singleShot(300,this,SLOT(showButton()));
 }
 
 void Dialog::missmole(){
     //score--;
-    showButton();
+    qDebug()<<hit;
+    if(hit == 0 && remainT > 0)
+        showButton();
+    else
+        hit = 0;
 }
 
 void Dialog::again(){
@@ -190,7 +211,7 @@ void Dialog::again(){
     end_flag = 0;
     remainT = 10;
     score = 0;
-    run->singleShot(1000,this,SLOT(TimeCount()));
+    //run->singleShot(1000,this,SLOT(TimeCount()));
 
     aaa = 1;
     choosepic();
