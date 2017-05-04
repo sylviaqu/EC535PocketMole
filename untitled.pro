@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2017-04-20T11:11:39
+# Project created by QtCreator 2017-05-03T14:13:44
 #
 #-------------------------------------------------
 
@@ -8,7 +8,7 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = pmole
+TARGET = untitled
 TEMPLATE = app
 
 # The following define makes your compiler emit warnings if you use
@@ -27,3 +27,5 @@ SOURCES += main.cpp\
         dialog.cpp
 
 HEADERS  += dialog.h
+
+FORMS    += dialog.ui
