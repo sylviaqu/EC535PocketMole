@@ -19,7 +19,7 @@ static int score = 0;
 static int position_x[18] = {25,100,175,250,315,385,25,100,175,250,315,385,25,100,175,250,315,385};
 static int position_y[9] = {55,100,155,55,100,155,55,100,155};
 static int end_flag = 0;
-static int remainT = 60;
+static int remainT = 30;
 static int hit = 0;
 static int pic = 0;
 static int aaa = 0;
@@ -224,7 +224,7 @@ void Dialog::handleButton(){
         mybutton -> setIcon(ButtonIcon);
         mybutton -> setIconSize(QSize(50,50));
     }
-    QTimer::singleShot(300,this,SLOT(showButton()));
+    QTimer::singleShot(800,this,SLOT(showButton()));
 }
 /*
 void Dialog::missmole(){
@@ -241,7 +241,7 @@ void Dialog::again(){
     gameover->hide();
     over ->hide();
      end_flag = 0;
-     remainT = 20;
+     remainT = 30;
      score = 0;
      //run->singleShot(1000,this,SLOT(TimeCount()));
 
